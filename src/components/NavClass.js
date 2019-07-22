@@ -9,12 +9,13 @@ class NavClass extends Component {
 		text: ""
 	};
 
-	onChange = e => {
+	onSubmit = e => {
 		e.preventDefault();
-		console.log(this.state.text);
+		this.props.searchUsers(this.state.text);
+		this.setState({ text: " " });
 	};
 
-	onSubmit = e => this.setState({ [e.target.name]: e.target.value });
+	onChange = e => this.setState({ text: e.target.value });
 
 	static defaultProps = {
 		title: "Github Finder",
@@ -32,7 +33,7 @@ class NavClass extends Component {
 					<i className={icon} style={{ fontSize: "2rem", marginRight: "1rem" }} />
 					{title}
 				</Navbar.Brand>
-				<Form inline>
+				<Form inline onSubmit={this.onSubmit}>
 					<FormControl
 						type="text"
 						placeholder="Search"
@@ -40,9 +41,14 @@ class NavClass extends Component {
 						value={this.state.text}
 						onChange={this.onChange}
 					/>
-					<Button onSubmit={this.onSubmit} variant="outline-dark">
-						Search
+					<Button variant="outline-dark" onClick={this.onSubmit}>
+						Search Users
 					</Button>
+					{this.props.showClear && (
+						<Button variant="outline-dark" onClick={this.props.clearUsers}>
+							Clear Users
+						</Button>
+					)}
 				</Form>
 			</Navbar>
 		);
