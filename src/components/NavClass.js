@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
@@ -49,6 +50,9 @@ class NavClass extends Component {
 							Clear Users
 						</Button>
 					)}
+					<Button variant="outline-dark">
+						<Link to="/about">About</Link>
+					</Button>
 				</Form>
 			</Navbar>
 		);

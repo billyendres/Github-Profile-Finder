@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import NavClass from "./NavClass";
 import Users from "./Users";
+import About from "./About";
 
 class App extends Component {
 	state = {
@@ -25,15 +27,28 @@ class App extends Component {
 
 	render() {
 		return (
-			<div>
-				<NavClass
-					searchUsers={this.searchUsers}
-					clearUsers={this.clearUsers}
-					showClear={this.state.users.length > 0 ? true : false}
-				/>
-				<div style={{ marginBottom: "5rem" }} />
-				<Users loading={this.state.loading} users={this.state.users} />
-			</div>
+			<BrowserRouter>
+				<div>
+					<NavClass
+						searchUsers={this.searchUsers}
+						clearUsers={this.clearUsers}
+						showClear={this.state.users.length > 0 ? true : false}
+					/>
+					<Switch>
+						<Route
+							exact
+							path="/home"
+							render={props => (
+								<Fragment>
+									<div style={{ marginBottom: "5rem" }} />
+									<Users loading={this.state.loading} users={this.state.users} />
+								</Fragment>
+							)}
+						/>
+						<Route exact path="/about" component={About} />
+					</Switch>
+				</div>
+			</BrowserRouter>
 		);
 	}
 }
